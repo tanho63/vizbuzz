@@ -1,0 +1,24 @@
+---
+title: "VizBuzz 02"
+date: 2022-03-08
+author: Tan Ho
+output: github_document
+---
+
+```{r setup}
+suppressPackageStartupMessages({
+  library(tidyverse)
+  library(tantastic)
+  library(ggthemes)# library(usmap)
+  # library(ggVennDiagram)
+})
+```
+
+```{r warning=FALSE,message=FALSE}
+
+```
+
+```{r}
+
+```
+
