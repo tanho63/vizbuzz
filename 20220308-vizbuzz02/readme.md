@@ -101,7 +101,7 @@ x |>
     x = map(value, ~runif(1000,0,.x))
   ) |> 
   unnest(x) |> 
-ggplot(aes(x = year, y = x, color = fill)) +
+ggplot(aes(x = text, y = x, color = fill)) +
   geom_jitter(width = 1, height = 0, alpha = 0.5) +
   # geom_pointrange()
   scale_color_identity() +
