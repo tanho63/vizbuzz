@@ -1,11 +1,9 @@
----
-title: "VizBuzz 02"
-date: 2022-03-08
-author: Tan Ho
-output: github_document
----
+VizBuzz 02
+================
+Tan Ho
+2022-03-08
 
-```{r setup}
+``` r
 suppressPackageStartupMessages({
   library(tidyverse)
   library(tantastic)
@@ -20,7 +18,7 @@ suppressPackageStartupMessages({
 
 ![](vizz.jpg)
 
-```{r warning=FALSE,message=FALSE}
+``` r
 colony <- read.csv("colony.csv")
 
 
@@ -33,10 +31,9 @@ x <- colony |>
     colony_lost = sum(colony_lost, na.rm = TRUE),
     x = colony_lost / colony_n
     ) 
-
 ```
 
-```{r dev='ragg_png'}
+``` r
 purple <- "#9130F8"
 orange <- "#FB8100"
 
@@ -96,7 +93,9 @@ ggplot(aes(x = text, y = value, fill = fill)) +
   NULL
 ```
 
-```{r dev = 'ragg_png'}
+![](vizbuzz_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+
+``` r
 x |> 
   mutate(
     x = map(value, ~runif(1000,0,.x))
@@ -132,3 +131,4 @@ ggplot(aes(x = year, y = x, color = fill)) +
   NULL
 ```
 
+![](vizbuzz_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
