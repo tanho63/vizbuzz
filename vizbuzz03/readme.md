@@ -3,6 +3,90 @@ Vizbuzz 03
 Tan Ho
 2022-03-15
 
+``` r
+knitr::opts_chunk$set(echo = TRUE, dev = "ragg_png")
+suppressPackageStartupMessages({
+  library(tidyverse)
+  library(tantastic)
+  library(ggimage)
+  library(gridtext)
+  library(ggtext)
+  # library(ggthemes)
+  # library(ggtext)
+  # library(gridtext)
+  # library(ggbeeswarm)
+  # library(paletteer)
+  # library(ggbeeswarm)
+  # library(usmap)
+  # library(ggVennDiagram)
+  # library(ggridges)
+})
+```
+
 ## Vizbuzz 03
 
-![goal plot]()
+![goal plot](plot.png)
+
+``` r
+dat <- read_csv("wars_since_1900.csv") |> 
+  separate(Years, into = c("start","end"),sep = " - ",convert = TRUE) |> 
+  mutate(duration = end - start,
+         fatalities = Fatalities/1000) |> 
+  filter(fatalities > 1)
+```
+
+    ## Rows: 266 Columns: 4
+
+    ## -- Column specification --------------------------------------------------------
+    ## Delimiter: ","
+    ## chr (2): Name of War, Years
+    ## dbl (1): Type
+
+    ## 
+    ## i Use `spec()` to retrieve the full column specification for this data.
+    ## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+``` r
+colours <- list(
+  beige = "#FFFAE7"
+)
+
+link_to_img <- function(x = "poppy.png", width) {
+  glue::glue("<img src='{x}' width='{width}'/>")
+}
+```
+
+``` r
+dat |>
+  # mutate(image = map(fatalities/10, ~link_to_img("poppy.png",width = .x))) |> 
+  ggplot(aes(x = end, y = duration)) + 
+  geom_curve(aes(x = start, xend = end, y = 1, yend = duration), 
+             size = 0.4,curvature = 0.2, color = "red", alpha = 0.2) +
+  # geom_richtext(aes(label = image), alpha = 0.5) + 
+  geom_point(aes(size = fatalities),alpha = 0.85, color = "red") +
+  # geom_image(color = "red") +
+  scale_size_continuous(range = c(1,25)) +
+  scale_x_continuous(breaks = seq(1900,2010,by = 10)) +
+  # scale_size_continuous(range = c(0.05,0.5)) +
+  scale_y_continuous(trans = "log2",breaks = c(0,1,2,4,7,16,32,64),position = "right") +
+  theme_uv() +
+  theme(
+    plot.background = element_rect(fill = colours$beige, colour =  NA),
+    panel.background = element_rect(fill = colours$beige, colour =  NA),
+    legend.background = element_rect(fill = colours$beige, colour =  NA),
+    panel.grid.major.x = element_blank(),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    panel.grid.minor.y = element_blank(),
+    legend.key = element_rect(fill= colours$beige, colour =  NA),
+    legend.position = "bottom",
+    axis.title.x = element_blank()
+  ) + 
+  labs(y = "Duration", size = "Number of Deaths in Thousands")
+```
+
+    ## Warning: Transformation introduced infinite values in continuous y-axis
+
+    ## Warning: Transformation introduced infinite values in continuous y-axis
+
+![](readme_files/figure-gfm/plot-1.png)<!-- -->
