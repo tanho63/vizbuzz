@@ -86,12 +86,12 @@ dat |>
          scaled_fatalities = scaled_fatalities * 0.20 + 0.025) |> 
   ggplot(aes(x = duration + 1, y = end, size = Fatalities/1000)) + 
   geom_diagonal(aes(y = start, yend = end, x = 1, xend = duration + 1.01),color = "red",alpha = 0.2,inherit.aes = FALSE)+
-  geom_point(aes(size = fatalities),shape = 18, alpha = 0.5, color = "red") +
+  geom_point(aes(size = fatalities),shape = 18, alpha = 0.25, color = "red") +
   geom_from_path(aes(height = scaled_fatalities,
                      width = scaled_fatalities),
                  path = "poppy.png",
                  alpha = 0.95) + 
-  scale_size_continuous(range = c(1,25),
+  scale_size_continuous(range = c(1,20),
                         breaks = c(1000,2000,3000,4000,5000),
                         guide = guide_legend(title.position = "top")) +
   scale_y_continuous(breaks = seq(1900,2010,by = 10)) +
