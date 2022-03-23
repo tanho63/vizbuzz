@@ -70,9 +70,9 @@ tweet_parse <- tweets |>
   unnest(emojis) |> 
   dplyr::inner_join(emotes, by = c("emojis"="emoji")) |> 
   distinct(id, .keep_all = TRUE) |> 
+  mutate(created_at = lubridate::floor_date(created_at,"minute")) |> 
   group_by(boxer,
-           hour = lubridate::hour(created_at),
-           minute = lubridate::minute(created_at)) |> 
+           created_at) |> 
   summarise(
     count = n() 
   )
@@ -94,25 +94,26 @@ mayweatherlabels <- map_chr(mayweather_emotes,emoji) |> paste(collapse = "")
 macgregorlabels <- map_chr(mcgregor_emotes,emoji) |> paste(collapse = "")
 
 tweet_parse |> 
-  ggplot(aes(x = minute, y = count, color = boxer)) + 
-  geom_line(size = 1.2) +  
+  ggplot(aes(x = created_at, y = count/4, color = boxer)) + 
+  # geom_line(size = 1.2) +  
+  geom_smooth(size = 1.2, se = FALSE, method = "loess",) +
   scale_color_manual(
     values = c("Mayweather" = "#FDC22E","McGregor"="#40A642"),
     # labels = c("Mayweather" = mayweatherlabels, "McGregor"= macgregorlabels)
   ) + 
-  # theme_fivethirtyeight(base_family  = "Noto Sans") + 
-  tantastic::theme_uv()+
+  scale_x_datetime() +
+  theme_fivethirtyeight(base_family  = "IBM Plex Sans") +
   theme(
     plot.title.position = "plot",
-    legend.position = "top",
+    axis.title.y = element_text(),
+    legend.position = c(0.2,1),
     legend.text = ggtext::element_markdown(family = "Noto Sans")
   ) + 
   ylab("Four-minute rolling average") +
   labs(
     title = "Irish pride vs Money Team",
     subtitle = "Four-minute rolling average of the number of uses of selected emoji in\nsampled tweets during the Mayweather-McGregor fight",
-    caption = "Source: Twitter Streaming API",
-    # tag = "Five Thirty Eight"
+    caption = "Source: Twitter Streaming API"
   ) 
 
 ```
