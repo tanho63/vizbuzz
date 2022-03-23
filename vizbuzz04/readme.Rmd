@@ -1,0 +1,119 @@
+---
+title: "VizBuzz 04"
+date: 2022-03-22
+author: Tan Ho
+output: github_document
+---
+
+```{r setup}
+suppressPackageStartupMessages({
+  library(tidyverse)
+  library(tantastic)
+  library(emoji)
+  library(slider)
+  # library(nflplotR)
+  
+  library(ggthemes)
+  # library(paletteer)
+
+  # library(ggridges)
+  # library(ggtext)
+  # library(gridtext)
+  # library(ggbeeswarm)
+  # library(usmap)
+  # library(ggVennDiagram)
+  
+  # library(patchwork)
+  # library(cowplot)
+  
+  knitr::opts_chunk$set(dev = 'ragg_png')
+})
+```
+
+# Goal Viz
+
+![](goalviz.png)  
+
+What are the easy wins here?
+
+- Title
+- Subtitle
+- Colours
+- Axis breaks
+
+
+
+```{r import}
+tweets <- read_csv("tweets.csv")
+
+mcgregor_emotes <- c("shamrock",
+                     "flag_Ireland",
+                     "four_leaf_clover")
+
+mayweather_emotes <- c("money_mouth_face",
+                       "moneybag",
+                       "money_with_wings",
+                       "dollar")
+
+emotes <- emoji::emojis |> 
+  unnest(aliases) |> 
+  filter(aliases %in% c(mcgregor_emotes, mayweather_emotes)) |> 
+  mutate(
+    boxer = c(rep("McGregor",3), rep("Mayweather",4))
+  ) |> 
+  select(emoji,boxer)
+
+tweet_parse <- tweets |> 
+  mutate(
+    emojis = emoji::emoji_extract_all(text)
+  ) |> 
+  unnest(emojis) |> 
+  dplyr::inner_join(emotes, by = c("emojis"="emoji")) |> 
+  distinct(id, .keep_all = TRUE) |> 
+  group_by(boxer,
+           hour = lubridate::hour(created_at),
+           minute = lubridate::minute(created_at)) |> 
+  summarise(
+    count = n() 
+  )
+
+annotations <- list(
+  "Fight begins",
+  "McGregor does OK in early rounds",
+  "Mayweather takes \n over and wins by \nTKO"
+)
+
+```
+
+```{r manipulation}
+
+```
+
+```{r plots}
+mayweatherlabels <- map_chr(mayweather_emotes,emoji) |> paste(collapse = "")
+macgregorlabels <- map_chr(mcgregor_emotes,emoji) |> paste(collapse = "")
+
+tweet_parse |> 
+  ggplot(aes(x = minute, y = count, color = boxer)) + 
+  geom_line(size = 1.2) +  
+  scale_color_manual(
+    values = c("Mayweather" = "#FDC22E","McGregor"="#40A642"),
+    # labels = c("Mayweather" = mayweatherlabels, "McGregor"= macgregorlabels)
+  ) + 
+  # theme_fivethirtyeight(base_family  = "Noto Sans") + 
+  tantastic::theme_uv()+
+  theme(
+    plot.title.position = "plot",
+    legend.position = "top",
+    legend.text = ggtext::element_markdown(family = "Noto Sans")
+  ) + 
+  ylab("Four-minute rolling average") +
+  labs(
+    title = "Irish pride vs Money Team",
+    subtitle = "Four-minute rolling average of the number of uses of selected emoji in\nsampled tweets during the Mayweather-McGregor fight",
+    caption = "Source: Twitter Streaming API",
+    # tag = "Five Thirty Eight"
+  ) 
+
+```
+
