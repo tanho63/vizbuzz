@@ -89,7 +89,7 @@ annotations <- list(
 
 ```
 
-```{r plots}
+```{r plotses}
 mayweatherlabels <- map_chr(mayweather_emotes,emoji) |> paste(collapse = "")
 macgregorlabels <- map_chr(mcgregor_emotes,emoji) |> paste(collapse = "")
 
