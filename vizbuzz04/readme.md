@@ -108,8 +108,8 @@ macgregorlabels <- map_chr(mcgregor_emotes,emoji) |> paste(collapse = "")
 
 tweet_parse |> 
   ggplot(aes(x = created_at, y = count/4, color = boxer)) + 
-  # geom_line(size = 1.2) +  
-  geom_smooth(size = 1.2, se = FALSE, method = "loess",) +
+  geom_line(size = 1.2) +
+  # geom_smooth(size = 1.2, se = FALSE, method = "loess",) +
   scale_color_manual(
     values = c("Mayweather" = "#FDC22E","McGregor"="#40A642"),
     # labels = c("Mayweather" = mayweatherlabels, "McGregor"= macgregorlabels)
@@ -129,7 +129,5 @@ tweet_parse |>
     caption = "Source: Twitter Streaming API"
   ) 
 ```
-
-    ## `geom_smooth()` using formula 'y ~ x'
 
 ![](readme_files/figure-gfm/plots-1.png)<!-- -->
