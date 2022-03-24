@@ -154,15 +154,18 @@ footer_538_gridextra <- function(
   
   footer_left <- grid::textGrob(
     label = text_left, 
-    x = grid::unit(0,"npc"), 
+    x = grid::unit(0.02,"npc"), 
     gp = grid::gpar(col = font_colour, fontfamily = font_family, fontsize = font_size),
-    hjust = -0.1)
+    vjust = 0.5,
+    hjust = 0)
   
   footer_right <- grid::textGrob(
     label = text_right, 
-    x = grid::unit(1,"npc"), 
+    x = grid::unit(0.98,"npc"), 
+    y = grid::unit(0.5, "npc"),
     gp = grid::gpar(col = font_colour, fontfamily = font_family, fontsize = font_size),
-    hjust = 1.1)
+    vjust = 0.5,
+    hjust = 1)
   
   footer <- grid::grobTree(
     grid::rectGrob(gp = grid::gpar(fill = bg_colour,lwd = 0)),
@@ -170,9 +173,8 @@ footer_538_gridextra <- function(
     footer_right
   )
   
-  plot_out <- gridExtra::grid.arrange(base_plot, footer, heights = grid::unit(c(0.94,0.06), c("npc","npc")))
-  
-  plot_out
+  plot_out <- gridExtra::arrangeGrob(base_plot, footer, heights = grid::unit(c(0.94,0.06), c("npc","npc")))
+  grid::grid.draw(plot_out)
   # footer
 }
 
@@ -187,15 +189,10 @@ footer_538_gridextra <- function(
 #   )+
 #   ggthemes::theme_fivethirtyeight()
 
-plot_tweets |> footer_538_gridextra("FiveThirtyEight", "SOURCE: TWITTER STREAMING API")
+plot_tweets |> footer_538_gridextra("FiveThirtyEight", "SOURCE: TWITTER STREAMING API",font_family = "IBM Plex Sans Condensed") 
 ```
 
 ![](readme_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
-
-    ## TableGrob (2 x 1) "arrange": 2 grobs
-    ##   z     cells    name                grob
-    ## 1 1 (1-1,1-1) arrange      gtable[layout]
-    ## 2 2 (2-2,1-1) arrange gTree[GRID.gTree.3]
 
 ``` r
 footer_538_cowplot <- function(base_plot, 
@@ -213,204 +210,13 @@ footer_538_cowplot <- function(base_plot,
   
   cowplot::ggdraw() +
     cowplot::draw_plot(base_plot,hjust = 0,vjust = 1, x = 0, y=1,height = 0.94)  +
-    # cowplot::draw_plot(footer_bg, x = 0, y=0, vjust = 0, hjust = 0,height = 0.06) + 
-    # cowplot::draw_text(text_left, x = 0.03, y = 0.03, hjust = 0, vjust = 0.5, color = font_colour, size = font_size) + 
-    # cowplot::draw_text(text_right, x = 0.97, y = 0.03, hjust = 1, vjust = 0.5, color = font_colour, size = font_size) + 
+    cowplot::draw_plot(footer_bg, x = 0, y=0, vjust = 0, hjust = 0,height = 0.06) +
+    cowplot::draw_text(text_left, x = 0.03, y = 0.03, hjust = 0, vjust = 0.5, color = font_colour, size = font_size) +
+    cowplot::draw_text(text_right, x = 0.97, y = 0.03, hjust = 1, vjust = 0.5, color = font_colour, size = font_size) +
     NULL
 }
-plot_tweets |> footer_538_cowplot(text_left = "FiveThirtyEight",text_right =  "SOURCE: TWITTER STREAMING API")
+# plot_tweets |> footer_538_cowplot(text_left = "FiveThirtyEight",text_right =  "SOURCE: TWITTER STREAMING API")
 ```
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-    ## family 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-    ## family 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-    ## family 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-    ## family 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-    ## family 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-    ## family 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-    ## family 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-    ## family 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-    ## family 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-    ## family 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-    ## family 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-    ## family 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-    ## family 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-    ## family 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-    ## family 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-    ## family 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-    ## family 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-    ## family 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-    ## family 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-    ## family 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-    ## family 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-    ## Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-    ## 'IBM Plex Sans' not found in PostScript font database
-
-![](readme_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 ``` r
 # library(patchwork)
