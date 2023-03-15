@@ -52,7 +52,7 @@ df_tr |>
         fill = as.factor(distance)
         )
   ) +
-  geom_col(color = NA, linewidth = 10) + 
+  geom_col(color = NA) + 
   coord_polar(theta="y", start = 4.71239) + 
   theme_void(base_family = "Fira Sans Condensed") + 
   theme(
@@ -61,12 +61,12 @@ df_tr |>
     plot.title = element_text(hjust = 0.5,face = "bold",size = 50),
     plot.subtitle = element_text(hjust = 0.5, size = 15),
     plot.caption = element_text(hjust = 0.5,face = "bold", size = 12),
-    plot.caption.position = "plot",
-    plot.background = element_rect(fill = "#FDF7EE", colour = NULL,linewidth = NULL)
+    plot.caption.position = "plot"
     ) + 
   ylim(0, max(df_tr$time_in_seconds) + 12000) + 
-  scale_x_reverse() +
+  scale_x_reverse(limits = c(176,170)) +
   scale_fill_discrete(type = colours) + 
+  scale_color_discrete(type = colours) + 
   labs(
     title = title,
     subtitle = subtitle,
