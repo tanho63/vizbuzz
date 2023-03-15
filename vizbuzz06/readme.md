@@ -13,6 +13,8 @@ suppressPackageStartupMessages({
 
 ## Vizbuzz S2 E2
 
+Goal image:
+
 ![goal plot](goal_image.png)
 
 4500x4500 px
@@ -91,5 +93,7 @@ ggsave(
 ```
 
     ## Warning: Removed 44 rows containing missing values (`geom_col()`).
+
+Submission
 
 ![](submission.png)
