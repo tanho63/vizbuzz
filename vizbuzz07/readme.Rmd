@@ -30,11 +30,14 @@ Resources:
 - colordropper
 
 TODO:
+
 - download data
 - download goal plot
 - set as many plot variables as possible
 - type out text pieces
 - start wrangling
+
+## goal plot
 
 ![goal plot](goal_plot.png)
 
@@ -135,4 +138,6 @@ ggsave(
   units = "px"
   )
 ```
+## tan's output
+
 ![output_png](output.png)

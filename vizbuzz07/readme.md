@@ -25,8 +25,15 @@ suppressPackageStartupMessages({
 
 Resources: - <https://r-graph-gallery.com/> - colordropper
 
-TODO: - download data - download goal plot - set as many plot variables
-as possible - type out text pieces - start wrangling
+TODO:
+
+  - download data
+  - download goal plot
+  - set as many plot variables as possible
+  - type out text pieces
+  - start wrangling
+
+## goal plot
 
 ![goal plot](goal_plot.png)
 
@@ -135,5 +142,7 @@ ggsave(
   units = "px"
   )
 ```
+
+## tan’s output
 
 ![output\_png](output.png)
