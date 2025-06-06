@@ -123,7 +123,6 @@ my_plot <- dayton |>
     theme(
       plot.subtitle = element_markdown()
     )
-    my_plot
 
 ggsave(
   plot = my_plot,
@@ -136,3 +135,4 @@ ggsave(
   units = "px"
   )
 ```
+![output_png](output.png)
