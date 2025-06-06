@@ -1,0 +1,76 @@
+---
+title: "VizBuzz 2025-01"
+author: "Tan Ho"
+date: "2025-06-05"
+output: github_document
+---
+
+```{r setup}
+knitr::opts_chunk$set(echo = TRUE, dev = "ragg_png")
+suppressPackageStartupMessages({
+  library(tidyverse)
+  library(tantastic)
+  library(nflplotR)
+  # library(ggthemes)
+  # library(ggtext)
+  # library(gridtext)
+  # library(ggbeeswarm)
+  # library(paletteer)
+  # library(ggbeeswarm)
+  # library(usmap)
+  # library(ggVennDiagram)
+  # library(ggridges)
+})
+```
+
+Resources:
+- https://r-graph-gallery.com/
+- colordropper
+
+TODO:
+- download data
+- download goal plot
+- set as many plot variables as possible
+- type out text pieces
+- start wrangling
+
+![goal plot](goal_plot.png)
+
+```{r import}
+dayton <- readr::read_csv("dayton.csv")
+```
+
+```{r wrangle}
+
+```
+
+```{r plot variables}
+plot_height <- 960
+plot_width <- 2448
+plot_title <- "Dayton's Weather In 2014"
+plot_subtitle <- "Data represents average daily temperatures. Accessible data dates back to \\nJanuary 1, 1995. Data for 2014 is only available through December 16. \\n Average temperature for the year was 51.9 making 2014 the 9th coldest \\nyear since 1995"
+plot_caption <- NULL
+plot_font <- NULL
+plot_bg <- "#FFFFFF"
+color_scale <- c(beige = "#EED7B1", blue = "#0327CD", red = "#CC2524")
+```
+
+```{r plot}
+my_plot <- df |>
+  ggplot() +
+  aes() +
+  labs(title = plot_title) +
+  theme_minimal(
+
+  )
+
+ggsave(
+  plot = my_plot,
+  device = ragg::agg_png,
+  height = plot_height,
+  width = plot_width,
+  bg = plot_bg,
+  dpi = 72,
+  units = "px"
+  )
+```
