@@ -35,7 +35,7 @@ dayton_raw <- readr::read_csv("dayton.csv")
 ```
 
     ## Rows: 7290 Columns: 4
-    ## ── Column specification ────────────────────────────────────
+    ## ── Column specification ──────────────────────────────────────────────────────────────────────────────────────────────────
     ## Delimiter: ","
     ## dbl (4): Month, Day, Year, Temp
     ## 
